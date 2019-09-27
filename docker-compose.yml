@@ -1,0 +1,47 @@
+version: '3'
+services:
+    plex:
+        image: linuxserver/plex
+        container_name: plex
+        volumes:
+            - ./plex-config:/config
+            - /home/milan/Videos/Movies:/data/movies
+            - /tmp:/data/transcode
+        network_mode: host
+        restart: always
+        environment:
+            - VERSION=latest
+            - TZ=Europe/Brussels
+        ports:
+            - 32400:32400
+
+    transmission:
+        image: linuxserver/transmission
+        container_name: transmission
+        environment:
+          - PUID=1000
+          - PGID=1000
+          - TZ=Europe/Brussels
+          - USER=admin
+          - PASS=admin
+        volumes:
+          - ./transmission-config:/config
+          - /tmp/transmission/downloads:/downloads
+          - /tmp/transmission/watch:/watch
+        ports:
+          - 9091:9091
+          - 51413:51413
+          - 51413:51413/udp
+        restart: unless-stopped
+
+    radarr:
+        image: linuxserver/radarr
+        container_name: radarr
+        volumes:
+            - ./radarr-config:/config
+            - /home/milan/Videos/Movies:/movies
+            - /tmp/transmission/downloads:/downloads
+        environment:
+            - TZ=Europe/Brussels
+        ports:
+            - 7878:7878
