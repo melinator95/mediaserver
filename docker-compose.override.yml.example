@@ -1,0 +1,7 @@
+version: '3'
+services:
+    plex:
+        volumes:
+            # List media volumes here as per example
+            # Folder name on host doesn't really matter, it still needs to be configured on Plex
+            - ${MEDIA_DIR}/Movies:/data/movies

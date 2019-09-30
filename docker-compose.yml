@@ -5,8 +5,8 @@ services:
         container_name: plex
         volumes:
             - ./plex-config:/config
-            - /home/milan/Videos/Movies:/data/movies
             - /tmp:/data/transcode
+            # Media dirs injected ere with override config
         network_mode: host
         restart: always
         environment:
@@ -39,7 +39,7 @@ services:
         container_name: radarr
         volumes:
             - ./radarr-config:/config
-            - /home/milan/Videos/Movies:/movies
+            - ${MEDIA_DIR}/Movies:/movies
             - /tmp/transmission/downloads:/downloads
         environment:
             - TZ=Europe/Brussels
