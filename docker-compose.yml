@@ -6,7 +6,7 @@ services:
         volumes:
             - ./plex-config:/config
             - /tmp:/data/transcode
-            # Media dirs injected ere with override config
+            # Media dirs injected here with override config
         network_mode: host
         restart: always
         environment:
@@ -29,10 +29,19 @@ services:
           - /tmp/transmission/downloads:/downloads
           - /tmp/transmission/watch:/watch
         ports:
-          - 9091:9091
           - 51413:51413
           - 51413:51413/udp
         restart: unless-stopped
+
+    bazarr:
+        image: linuxserver/bazarr
+        container_name: bazarr
+        environment:
+            - TZ=Europe/Brussels
+        volumes:
+            - ./bazarr-config:/config
+            - ${MEDIA_DIR}/Movies:/movies
+            - ${MEDIA_DIR}/TV Shows:/tv
 
     radarr:
         image: linuxserver/radarr
@@ -43,5 +52,31 @@ services:
             - /tmp/transmission/downloads:/downloads
         environment:
             - TZ=Europe/Brussels
+        depends_on:
+            - transmission
+
+    sonarr:
+        image: linuxserver/sonarr
+        container_name: sonarr
+        environment:
+            - TZ=Europe/Brussels
+        volumes:
+            - ./sonarr-config:/config
+            - ${MEDIA_DIR}/TV Shows:/tv
+            - /tmp/transmission/downloads:/downloads
+        depends_on:
+            - transmission
+
+    nginx:
+        image: nginx
+        container_name: nginx
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf:ro
         ports:
-            - 7878:7878
+            - 8080:8080
+        depends_on:
+            - transmission
+            - plex
+            - bazarr
+            - radarr
+            - sonarr
