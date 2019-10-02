@@ -52,7 +52,7 @@ services:
             context: radarr
         container_name: radarr
         volumes:
-            #- ./radarr-config:/config
+            - ./radarr-config:/config
             - ${MEDIA_DIR}/Movies:/movies
             - /tmp/transmission/downloads:/downloads
         environment:
@@ -71,7 +71,7 @@ services:
             - PUID=1000
             - PGID=1000
         volumes:
-            #- ./sonarr-config:/config
+            - ./sonarr-config:/config
             - ${MEDIA_DIR}/TV Shows:/tv
             - /tmp/transmission/downloads:/downloads
         depends_on:
