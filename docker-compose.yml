@@ -44,6 +44,7 @@ services:
             - PGID=1000
         volumes:
             - ./bazarr-config:/config
+            - ./bazarr-config.ini:/config/config/config.ini
             - ${MEDIA_DIR}/Movies:/movies
             - ${MEDIA_DIR}/TV Shows:/tv
 
