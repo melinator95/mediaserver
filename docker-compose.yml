@@ -5,7 +5,7 @@ services:
         container_name: plex
         volumes:
             - ./plex-config:/config
-            - /tmp:/data/transcode
+            - ./plex-transcode:/data/transcode
             # Media dirs injected here with override config
         network_mode: host
         restart: always
@@ -28,8 +28,8 @@ services:
           - PASS=admin
         volumes:
           - ./transmission-config:/config
-          - /tmp/transmission/downloads:/downloads
-          - /tmp/transmission/watch:/watch
+          - ./transmission/downloads:/downloads
+          - ./transmission/watch:/watch
         ports:
           - 51413:51413
           - 51413:51413/udp
@@ -55,7 +55,7 @@ services:
             - ./radarr-config:/config
             - ./radarr-config.xml:/config/config.xml
             - ${MEDIA_DIR}/Movies:/movies
-            - /tmp/transmission/downloads:/downloads
+            - ./transmission/downloads:/downloads
         environment:
             - TZ=Europe/Brussels
             - PUID=1000
@@ -74,7 +74,7 @@ services:
             - ./sonarr-config:/config
             - ./sonarr-config.xml:/config/config.xml
             - ${MEDIA_DIR}/TV Shows:/tv
-            - /tmp/transmission/downloads:/downloads
+            - ./transmission/downloads:/downloads
         depends_on:
             - transmission
 
