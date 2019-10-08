@@ -78,9 +78,9 @@ services:
         depends_on:
             - transmission
 
-    nginx:
+    nginx-media:
         image: nginx
-        container_name: nginx
+        container_name: nginx-media
         volumes:
             - ./nginx.conf:/etc/nginx/nginx.conf:ro
         ports:
