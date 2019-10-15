@@ -90,9 +90,9 @@ services:
             - ./jackett/jackett-config:/config
             - ./transmission/downloads:/downloads
 
-    nginx:
+    nginx-media:
         image: nginx
-        container_name: nginx
+        container_name: nginx-media
         volumes:
             - ./nginx.conf:/etc/nginx/nginx.conf:ro
         ports:
