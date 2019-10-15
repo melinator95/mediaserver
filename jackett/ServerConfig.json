@@ -1,0 +1,19 @@
+{
+  "Port": 9117,
+  "AllowExternal": true,
+  "APIKey": "ixvgwv820xg0gptshsizlwmcwkomg0z7",
+  "AdminPassword": null,
+  "InstanceId": "2smrqkbhum7se7khnntml5fj4r8n0v8af5l1zcund8pnc5lczhqgdkxf8j0k5vhw",
+  "BlackholeDir": null,
+  "UpdateDisabled": false,
+  "UpdatePrerelease": false,
+  "BasePathOverride": "/jackett",
+  "OmdbApiKey": null,
+  "OmdbApiUrl": null,
+  "ProxyUrl": null,
+  "ProxyType": 0,
+  "ProxyPort": null,
+  "ProxyUsername": null,
+  "ProxyPassword": null,
+  "ProxyIsAnonymous": true
+}

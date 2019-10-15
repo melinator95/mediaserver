@@ -78,6 +78,18 @@ services:
         depends_on:
             - transmission
 
+    jackett:
+        image: linuxserver/jackett
+        container_name: jackett
+        environment:
+            - TZ=Europe/Brussels
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./jackett/ServerConfig.json:/config/Jackett/ServerConfig.json
+            - ./jackett/jackett-config:/config
+            - ./transmission/downloads:/downloads
+
     nginx:
         image: nginx
         container_name: nginx
