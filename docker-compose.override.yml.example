@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.2'
 services:
     # List media volumes here as per example
     # Folder name on host doesn't really matter, it still needs to be configured on Plex
