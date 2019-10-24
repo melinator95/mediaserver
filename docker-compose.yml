@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
     plex:
         image: linuxserver/plex
@@ -34,6 +34,8 @@ services:
           - 51413:51413
           - 51413:51413/udp
         restart: unless-stopped
+        depends_on:
+            - plex
 
     bazarr:
         image: linuxserver/bazarr
@@ -45,8 +47,9 @@ services:
         volumes:
             - ./bazarr-config:/config
             - ./bazarr-config.ini:/config/config/config.ini
-            - ${MEDIA_DIR}/Movies:/movies
-            - ${MEDIA_DIR}/TV Shows:/tv
+            # Media dirs injected here with override config
+        depends_on:
+            - plex
 
     radarr:
         image: linuxserver/radarr
@@ -54,8 +57,8 @@ services:
         volumes:
             - ./radarr-config:/config
             - ./radarr-config.xml:/config/config.xml
-            - ${MEDIA_DIR}/Movies:/movies
             - ./transmission/downloads:/downloads
+            # Media dirs injected here with override config
         environment:
             - TZ=Europe/Brussels
             - PUID=1000
@@ -73,8 +76,8 @@ services:
         volumes:
             - ./sonarr-config:/config
             - ./sonarr-config.xml:/config/config.xml
-            - ${MEDIA_DIR}/TV Shows:/tv
             - ./transmission/downloads:/downloads
+            # Media dirs injected here with override config
         depends_on:
             - transmission
 
@@ -89,6 +92,8 @@ services:
             - ./jackett/ServerConfig.json:/config/Jackett/ServerConfig.json
             - ./jackett/jackett-config:/config
             - ./transmission/downloads:/downloads
+        depends_on:
+            - transmission
 
     nginx-media:
         image: nginx
@@ -103,3 +108,4 @@ services:
             - bazarr
             - radarr
             - sonarr
+            - jackett

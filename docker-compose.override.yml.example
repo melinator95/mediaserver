@@ -1,7 +1,42 @@
 version: '3'
 services:
+    # List media volumes here as per example
+    # Folder name on host doesn't really matter, it still needs to be configured on Plex
     plex:
         volumes:
-            # List media volumes here as per example
-            # Folder name on host doesn't really matter, it still needs to be configured on Plex
-            - ${MEDIA_DIR}/Movies:/data/movies
+            - type: bind
+              source: ${MEDIA_DIR}/Movies
+              target: /data/movies
+            - type: bind
+              source: ${MEDIA_DIR}/TV Shows
+              target: /data/tv
+            - type: bind
+              source: ${MEDIA_DIR}/Anime
+              target: /data/anime
+            - type: bind
+              source: ${MEDIA_DIR}/Music
+              target: /data/music
+    radarr:
+        volumes:
+            - type: bind
+              source: ${MEDIA_DIR}/Movies
+              target: /movies
+    sonarr:
+        volumes:
+            - type: bind
+              source: ${MEDIA_DIR}/TV Shows
+              target: /tv
+            - type: bind
+              source: ${MEDIA_DIR}/Anime
+              target: /anime
+    bazarr:
+        volumes:
+            - type: bind
+              source: ${MEDIA_DIR}/Movies
+              target: /movies
+            - type: bind
+              source: ${MEDIA_DIR}/TV Shows
+              target: /tv
+            - type: bind
+              source: ${MEDIA_DIR}/Anime
+              target: /anime
