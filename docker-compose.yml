@@ -65,6 +65,23 @@ services:
             - PGID=1000
         depends_on:
             - transmission
+    
+    lidarr:
+        image: linuxserver/lidarr
+        container_name: lidarr
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Brussels
+        volumes:
+            - ./lidarr-config:/config
+            - ./lidarr-config.xml:/config/config.xml
+            - ./transmission/downloads:/downloads
+            # Media dirs injected here with override config
+        depends_on:
+            - transmission
+        ports:
+            - 8686:8686
 
     sonarr:
         image: linuxserver/sonarr
@@ -108,4 +125,5 @@ services:
             - bazarr
             - radarr
             - sonarr
+            - lidarr
             - jackett

@@ -29,6 +29,11 @@ services:
             - type: bind
               source: ${MEDIA_DIR}/Anime
               target: /anime
+    lidarr:
+        volumes:
+            - type: bind
+              source: ${MEDIA_DIR}/Music
+              target: /music
     bazarr:
         volumes:
             - type: bind

@@ -1,0 +1,14 @@
+<Config>
+  <LogLevel>info</LogLevel>
+  <EnableSsl>False</EnableSsl>
+  <Port>8686</Port>
+  <SslPort>6868</SslPort>
+  <UrlBase>/lidarr</UrlBase>
+  <BindAddress>*</BindAddress>
+  <ApiKey>9a6463e95db34368a475a49fc658f608</ApiKey>
+  <AuthenticationMethod>None</AuthenticationMethod>
+  <Branch>master</Branch>
+  <LaunchBrowser>True</LaunchBrowser>
+  <SslCertHash></SslCertHash>
+  <UpdateMechanism>BuiltIn</UpdateMechanism>
+</Config>
