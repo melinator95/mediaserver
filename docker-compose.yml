@@ -8,7 +8,6 @@ services:
             - ./plex-transcode:/data/transcode
             # Media dirs injected here with override config
         network_mode: host
-        restart: always
         environment:
             - VERSION=latest
             - TZ=Europe/Brussels
