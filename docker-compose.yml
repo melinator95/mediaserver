@@ -28,8 +28,9 @@ services:
           - PASS=admin
         volumes:
           - ./transmission-config:/config
-          - ./transmission/downloads:/downloads
-          - ./transmission/watch:/watch
+          - ./transmission-settings.json:/config/settings.json
+          - ${TRANSMISSION_DIR}/downloads:/downloads
+          - ${TRANSMISSION_DIR}/watch:/watch
         ports:
           - 51413:51413
           - 51413:51413/udp
@@ -57,7 +58,7 @@ services:
         volumes:
             - ./radarr-config:/config
             - ./radarr-config.xml:/config/config.xml
-            - ./transmission/downloads:/downloads
+            - ${TRANSMISSION_DIR}/downloads:/downloads
             # Media dirs injected here with override config
         environment:
             - TZ=Europe/Brussels
@@ -76,7 +77,7 @@ services:
         volumes:
             - ./lidarr-config:/config
             - ./lidarr-config.xml:/config/config.xml
-            - ./transmission/downloads:/downloads
+            - ${TRANSMISSION_DIR}/downloads:/downloads
             # Media dirs injected here with override config
         depends_on:
             - transmission
@@ -93,7 +94,7 @@ services:
         volumes:
             - ./sonarr-config:/config
             - ./sonarr-config.xml:/config/config.xml
-            - ./transmission/downloads:/downloads
+            - ${TRANSMISSION_DIR}/downloads:/downloads
             # Media dirs injected here with override config
         depends_on:
             - transmission
@@ -108,7 +109,7 @@ services:
         volumes:
             - ./jackett/ServerConfig.json:/config/Jackett/ServerConfig.json
             - ./jackett/jackett-config:/config
-            - ./transmission/downloads:/downloads
+            - ${TRANSMISSION_DIR}/downloads:/downloads
         depends_on:
             - transmission
 
