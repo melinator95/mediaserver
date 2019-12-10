@@ -124,6 +124,19 @@ services:
         depends_on:
             - transmission
 
+    heimdall:
+        image: linuxserver/heimdall
+        container_name: heimdall
+        environment:
+            - TZ=Europe/Brussels
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./heimdall/heimdall-config:/config
+        ports:
+            - 80:11080
+            - 443:11443
+
     nginx-media:
         image: nginx
         container_name: nginx-media
@@ -139,3 +152,4 @@ services:
             - sonarr
 #            - lidarr
             - jackett
+            - heimdall
