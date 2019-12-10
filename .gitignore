@@ -4,3 +4,4 @@ docker-compose.override.yml
 *.kate-swp
 transmission/
 plex-transcode/
+*.ini
