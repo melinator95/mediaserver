@@ -133,9 +133,6 @@ services:
             - PGID=1000
         volumes:
             - ./heimdall/heimdall-config:/config
-        ports:
-            - 80:11080
-            - 443:11443
 
     nginx-media:
         image: nginx
