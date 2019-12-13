@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.5'
 services:
     plex:
         image: linuxserver/plex
@@ -7,7 +7,6 @@ services:
             - ./plex-config:/config
             - ./plex-transcode:/data/transcode
             # Media dirs injected here with override config
-        network_mode: host
         environment:
             - VERSION=latest
             - TZ=Europe/Brussels
@@ -151,3 +150,13 @@ services:
             - ./nginx.conf:/etc/nginx/nginx.conf:ro
         ports:
             - 8080:8080
+        depends_on:
+            - plex
+            - transmission
+            - radarr
+            - sonarr
+            #- lidarr
+            - heimdall
+            - ombi
+            - jackett
+            - bazarr
