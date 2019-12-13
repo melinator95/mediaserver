@@ -128,11 +128,21 @@ services:
         image: linuxserver/heimdall
         container_name: heimdall
         environment:
-            - TZ=Europe/Brussels
             - PUID=1000
             - PGID=1000
         volumes:
             - ./heimdall/heimdall-config:/config
+    
+    ombi:
+        image: linuxserver/ombi
+        container_name: ombi
+        environment:
+            - TZ=Europe/Brussels
+            - PUID=1000
+            - PGID=1000
+            - BASE_URL=/ombi
+        volumes:
+            - ./ombi/ombi-config:/config
 
     nginx-media:
         image: nginx
@@ -141,12 +151,3 @@ services:
             - ./nginx.conf:/etc/nginx/nginx.conf:ro
         ports:
             - 8080:8080
-        depends_on:
-            - transmission
-            - plex
-            - bazarr
-            - radarr
-            - sonarr
-#            - lidarr
-            - jackett
-            - heimdall
