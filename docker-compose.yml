@@ -71,24 +71,22 @@ services:
         depends_on:
             - transmission
     
-#    lidarr:
-#        image: linuxserver/lidarr
-#        container_name: lidarr
-#        environment:
-#            - PUID=1000
-#            - PGID=1000
-#            - TZ=Europe/Brussels
-#        volumes:
-#            - ./lidarr-config:/config
-#            - ./lidarr-config.xml:/config/config.xml
-#            - type: bind
-#              source: ${TRANSMISSION_DIR}/downloads
-#              target: /downloads
-#            # Media dirs injected here with override config
-#        depends_on:
-#            - transmission
-#        ports:
-#            - 8686:8686
+    lidarr:
+        image: linuxserver/lidarr
+        container_name: lidarr
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Brussels
+        volumes:
+            - ./lidarr-config:/config
+            - ./lidarr-config.xml:/config/config.xml
+            - type: bind
+              source: ${TRANSMISSION_DIR}/downloads
+              target: /downloads
+            # Media dirs injected here with override config
+        depends_on:
+            - transmission
 
     sonarr:
         image: linuxserver/sonarr
@@ -155,7 +153,7 @@ services:
             - transmission
             - radarr
             - sonarr
-            #- lidarr
+            - lidarr
             - heimdall
             - ombi
             - jackett
