@@ -128,7 +128,7 @@ services:
             - TZ=Europe/Brussels
             - PUID=1000
             - PGID=1000
-            - BASE_URL=/ombi
+            - BASE_URL=/media/ombi
         volumes:
             - ./ombi/ombi-config:/config
 
