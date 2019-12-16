@@ -47,7 +47,7 @@
     "rpc-host-whitelist-enabled": true,
     "rpc-password": "{85ce1899ee8d964ef28c04ef486ec2f497cce211UOvLZDVR",
     "rpc-port": 9091,
-    "rpc-url": "/transmission/",
+    "rpc-url": "/media/transmission/",
     "rpc-username": "admin",
     "rpc-whitelist": "127.0.0.1",
     "rpc-whitelist-enabled": false,
