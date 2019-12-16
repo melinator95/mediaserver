@@ -120,15 +120,6 @@ services:
               target: /downloads
         depends_on:
             - transmission
-
-    heimdall:
-        image: linuxserver/heimdall
-        container_name: heimdall
-        environment:
-            - PUID=1000
-            - PGID=1000
-        volumes:
-            - ./heimdall/heimdall-config:/config
     
     ombi:
         image: linuxserver/ombi
@@ -154,7 +145,6 @@ services:
             - radarr
             - sonarr
             - lidarr
-            - heimdall
             - ombi
             - jackett
             - bazarr
