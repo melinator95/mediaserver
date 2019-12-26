@@ -14,6 +14,8 @@ services:
             - PGID=1000
         ports:
             - 32400:32400
+        networks:
+            - traefik
 
     transmission:
         image: linuxserver/transmission
@@ -43,7 +45,8 @@ services:
             - traefik.enable=true
             - traefik.http.services.transmission.loadbalancer.server.port=9091
             - traefik.http.routers.transmission.rule=PathPrefix(`/media/transmission`)
-            - traefik.http.routers.transmission.entryPoints=http
+        networks:
+            - traefik
 
     bazarr:
         image: linuxserver/bazarr
@@ -62,7 +65,8 @@ services:
             - traefik.enable=true
             - traefik.http.services.bazarr.loadbalancer.server.port=6767
             - traefik.http.routers.bazarr.rule=PathPrefix(`/media/bazarr`)
-            - traefik.http.routers.bazarr.entryPoints=http
+        networks:
+            - traefik
 
     radarr:
         image: linuxserver/radarr
@@ -84,7 +88,8 @@ services:
             - traefik.enable=true
             - traefik.http.services.radarr.loadbalancer.server.port=7878
             - traefik.http.routers.radarr.rule=PathPrefix(`/media/radarr`)
-            - traefik.http.routers.radarr.entryPoints=http
+        networks:
+            - traefik
     
     lidarr:
         image: linuxserver/lidarr
@@ -106,7 +111,8 @@ services:
             - traefik.enable=true
             - traefik.http.services.lidarr.loadbalancer.server.port=8686
             - traefik.http.routers.lidarr.rule=PathPrefix(`/media/lidarr`)
-            - traefik.http.routers.lidarr.entryPoints=http
+        networks:
+            - traefik
 
     sonarr:
         image: linuxserver/sonarr
@@ -128,7 +134,8 @@ services:
             - traefik.enable=true
             - traefik.http.services.sonarr.loadbalancer.server.port=8989
             - traefik.http.routers.sonarr.rule=PathPrefix(`/media/sonarr`)
-            - traefik.http.routers.sonarr.entryPoints=http
+        networks:
+            - traefik
 
     jackett:
         image: linuxserver/jackett
@@ -149,7 +156,8 @@ services:
             - traefik.enable=true
             - traefik.http.services.jackett.loadbalancer.server.port=9117
             - traefik.http.routers.jackett.rule=PathPrefix(`/media/jackett`)
-            - traefik.http.routers.jackett.entryPoints=http
+        networks:
+            - traefik
     
     ombi:
         image: linuxserver/ombi
@@ -165,29 +173,10 @@ services:
             - traefik.enable=true
             - traefik.http.services.ombi.loadbalancer.server.port=3579
             - traefik.http.routers.ombi.rule=PathPrefix(`/media/ombi`)
-            - traefik.http.routers.ombi.entryPoints=http
+        networks:
+            - traefik
 
-    traefik:
-        image: traefik
-        container_name: traefik
-        command:
-            - --api.dashboard=true
-            - --providers.docker.exposedByDefault=false
-        depends_on:
-            - transmission
-            - sonarr
-            - radarr
-            - lidarr
-            - bazarr
-            - jackett
-            - ombi
-        ports:
-            - "8080:80"
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-        labels:
-            - traefik.enable=true
-            - traefik.http.routers.api.rule=PathPrefix(`/api`) || PathPrefix(`/dashboard`) || PathPrefix(`/media/traefik`)
-            - traefik.http.routers.api.service=api@internal
-            - traefik.http.routers.api.middlewares=stripMediaTraefik
-            - traefik.http.middlewares.stripMediaTraefik.stripPrefix.prefixes=/media/traefik
+networks:
+  traefik:
+    external:
+      name: traefik
