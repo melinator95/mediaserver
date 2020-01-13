@@ -13,6 +13,24 @@ services:
             - PUID=1000
             - PGID=1000
         network_mode: host
+    
+    tautulli:
+        image: linuxserver/tautulli
+        container_name: tautulli
+        environment:
+            - TZ=Europe/Brussels
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./tautulli-config:/config
+            - ./plex-logs:/logs
+        depends_on:
+            - plex
+        labels:
+            - traefik.enable=true
+            - traefik.http.services.tautulli.loadbalancer.server.port=8181
+            - traefik.http.routers.tautulli.rule=PathPrefix(`/media/tautulli`)
+            - traefik.http.routers.tautulli.entryPoints=http
 
     transmission:
         image: linuxserver/transmission
@@ -35,7 +53,6 @@ services:
         ports:
           - 51413:51413
           - 51413:51413/udp
-        restart: unless-stopped
         depends_on:
             - plex
         labels:
